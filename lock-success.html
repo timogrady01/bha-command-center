@@ -5,54 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         :root { --matrix-green: #00FF41; --danger-red: #FF3131; --bg-black: #0A0A0A; }
-        body { background: var(--bg-black); color: white; font-family: sans-serif; text-align: center; padding: 40px 20px; margin: 0; }
-        .lock-container { border: 2px solid var(--danger-red); border-radius: 12px; padding: 30px; max-width: 400px; margin: auto; background: #111; box-shadow: 0 0 20px rgba(255, 49, 49, 0.2); }
-        h1 { color: var(--danger-red); font-size: 1.8rem; letter-spacing: 2px; }
-        .stk-badge { color: var(--matrix-green); font-size: 1.4rem; font-weight: bold; margin: 20px 0; background: #222; padding: 10px; border-radius: 5px; display: inline-block; }
-        .call-btn { display: block; background: var(--matrix-green); color: black; padding: 18px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 1.1rem; }
+        body { background: var(--bg-black); color: white; font-family: sans-serif; text-align: center; padding: 40px 20px; }
+        .lock-container { border: 2px solid var(--danger-red); border-radius: 12px; padding: 30px; max-width: 400px; margin: auto; background: #111; }
+        .stk-badge { color: var(--matrix-green); font-size: 1.4rem; font-weight: bold; margin: 20px 0; background: #222; padding: 12px; border-radius: 5px; display: inline-block; }
+        .call-btn { display: block; background: var(--matrix-green); color: black; padding: 18px; border-radius: 8px; text-decoration: none; font-weight: 900; margin-top: 30px; }
     </style>
 </head>
 <body>
     <div class="lock-container">
         <h1>🛑 ROTATION STOPPED</h1>
         <div class="stk-badge">STK# <span id="stock-num">CONNECTING...</span></div>
-        <p>This unit has been removed from the rotation chain. No other Buying Dealers can view this unit.</p>
+        <p>This unit has been removed from the rotation chain.</p>
         <a href="tel:7135550123" class="call-btn">📞 CALL HOUSTON HUB</a>
     </div>
 
-    <!-- THE ENGINE - UPDATED FOR STABILITY -->
     <script src="https://cdn.jsdelivr.net"></script>
-
     <script>
       // 1. YOUR CONNECTION INFO
-      const SB_URL = 'https://fvmcwglshejfrexiwffm.supabase.co'; 
-      const SB_KEY = 'PASTE_THE_KEY_YOU_JUST_COPIED_HERE'; // <--- PASTE IT HERE
+      const SB_URL = 'PASTE_YOUR_URL_HERE'; 
+      const SB_KEY = 'PASTE_YOUR_ANON_KEY_HERE';
 
-      // 2. INITIALIZE THE BRAIN
       const { createClient } = supabase;
       const _supabase = createClient(SB_URL, SB_KEY);
 
       async function lockUnit() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const stockNum = urlParams.get('stk'); 
-
-        if (stockNum) {
-          const { error } = await _supabase
-            .from('inventory')
-            .update({ status: 'LOCKED', rotation_active: false })
-            .eq('stock_number', stockNum);
-
-          if (error) {
-            document.getElementById('stock-num').innerText = "LOCK ERROR";
-          } else {
-            document.getElementById('stock-num').innerText = stockNum;
-          }
-        } else {
-            document.getElementById('stock-num').innerText = "NO STK# PROVIDED";
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const stockNum = urlParams.get('stk'); 
+            
+            if (stockNum) {
+              const { error } = await _supabase.from('inventory').update({ status: 'LOCKED' }).eq('stock_number', stockNum);
+              if (error) throw error;
+              document.getElementById('stock-num').innerText = stockNum;
+            } else {
+              document.getElementById('stock-num').innerText = "NO STK# PROVIDED";
+            }
+        } catch (err) {
+            console.error(err);
+            document.getElementById('stock-num').innerText = "CONNECTION ERROR";
         }
       }
       lockUnit();
     </script>
 </body>
 </html>
-
