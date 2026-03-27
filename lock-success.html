@@ -55,3 +55,37 @@
     </script>
 </body>
 </html>
+<script type="module">
+  // FIXED LINE BELOW (added /supabase-js)
+  import { createClient } from 'https://jspm.dev'
+
+  // --- ENSURE YOUR KEYS ARE HERE ---
+  const SB_URL = 'PASTE_YOUR_SUPABASE_URL_HERE'; 
+  const SB_KEY = 'PASTE_YOUR_SUPABASE_KEY_HERE';
+  // ---------------------------------
+
+  const supabase = createClient(SB_URL, SB_KEY);
+
+  async function lockUnit() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const stockNum = urlParams.get('stk'); 
+
+    if (stockNum) {
+      const { error } = await supabase
+        .from('inventory')
+        .update({ status: 'LOCKED', rotation_active: false })
+        .eq('stock_number', stockNum);
+
+      if (error) {
+        console.error('Lock Failed:', error);
+        document.getElementById('stock-num').innerText = "ERROR";
+      } else {
+        document.getElementById('stock-num').innerText = stockNum;
+      }
+    } else {
+        document.getElementById('stock-num').innerText = "NO STK# PROVIDED";
+    }
+  }
+  lockUnit();
+</script>
+
