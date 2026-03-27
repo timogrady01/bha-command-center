@@ -1,0 +1,58 @@
+<div class="lock-container">
+    <!-- Header: The "Kill Switch" Confirmation -->
+    <header class="status-header">
+        <div class="pulse-icon">🛑</div>
+        <h1>ROTATION STOPPED</h1>
+        <p class="timestamp">LOCKED: <span id="current-time">NOW</span></p>
+    </header>
+
+    <!-- Unit Vital Signs -->
+    <section class="unit-card">
+        <div class="stk-badge">STK# <span id="stock-num">H-130-XP</span></div>
+        <h2 class="vehicle-name">2021 FORD F-150 LARIAT</h2>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="label">STATUS</span>
+                <span class="value gold">PENDING ACQ</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">AGED POS.</span>
+                <span class="value">84 DAYS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof of Value: The "CFO" Vault -->
+    <section class="value-vault">
+        <h3>🛡️ UNIVERSAL 4 PROOF</h3>
+        <div class="link-row">🟢 CPO ELIGIBILITY REPORT</div>
+        <div class="link-row">📄 SERVICE VAULT (CARFAX)</div>
+        <div class="link-row">⚖️ MARKET VELOCITY DATA</div>
+    </section>
+
+    <!-- The Action Trigger -->
+    <footer class="action-footer">
+        <p>Call the Store Manager immediately to finalize the internal transfer price and logistics.</p>
+        <a href="tel:7135550123" class="call-btn">📞 CALL HOUSTON HUB</a>
+        <p class="security-note">This unit is now invisible to all other Buying Dealers in the 50-mile radius.</p>
+    </footer>
+</div>
+
+<style>
+    :root { --matrix-green: #00FF41; --danger-red: #FF3131; --bg-black: #0A0A0A; }
+    body { background: var(--bg-black); color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
+    .lock-container { max-width: 400px; margin: auto; border: 1px solid #333; border-radius: 12px; padding: 20px; background: linear-gradient(180deg, #121212 0%, #000 100%); }
+    .status-header { text-align: center; border-bottom: 2px solid var(--danger-red); padding-bottom: 15px; }
+    .status-header h1 { color: var(--danger-red); letter-spacing: 2px; margin: 10px 0; font-size: 1.8rem; }
+    .unit-card { margin-top: 25px; background: #1a1a1a; padding: 15px; border-radius: 8px; }
+    .stk-badge { background: #333; display: inline-block; padding: 4px 10px; border-radius: 4px; font-weight: bold; color: var(--matrix-green); }
+    .stats-grid { display: flex; gap: 10px; margin-top: 15px; }
+    .stat-box { flex: 1; background: #000; padding: 10px; border: 1px solid #222; text-align: center; }
+    .label { display: block; font-size: 0.7rem; color: #888; margin-bottom: 5px; }
+    .value { font-weight: 800; font-size: 1rem; }
+    .gold { color: #FFD700; }
+    .value-vault { margin-top: 25px; }
+    .link-row { padding: 12px; border-bottom: 1px solid #222; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+    .call-btn { display: block; background: var(--matrix-green); color: black; text-align: center; padding: 18px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 1.2rem; margin-top: 20px; }
+    .security-note { font-size: 0.7rem; color: #555; text-align: center; margin-top: 15px; }
+</style>
